@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express();
 const bodyParser = require('body-parser')
+const UsersController = require('./routes/UsersController')
 mongoose.Promise = global.Promise
 
 
@@ -17,9 +18,10 @@ connection.on('error', (error) => {
     console.log("Mongo Error ", error )
 })
 
-//Middleware
+//Inject Middleware
 app.use(bodyParser.json())
 app.use(express.static(`${__dirname}/client/build`))
+app.use('/api/users', UsersController)
 
 app.get('/', (req,res) => {
     res.sendFile(`${__dirname}/client/build/index.html`)
