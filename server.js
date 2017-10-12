@@ -17,10 +17,12 @@ connection.on('error', (error) => {
     console.log("Mongo Error ", error )
 })
 
+//Middleware
 app.use(bodyParser.json())
+app.use(express.static(`${__dirname}/client/build`))
 
 app.get('/', (req,res) => {
-    res.send('Hello World')
+    res.sendFile(`${__dirname}/client/build/index.html`)
 })
 
 const PORT = process.env.PORT || 3001
